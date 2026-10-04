@@ -30,31 +30,31 @@ function App(){
  ]);
 
  useEffect(()=>{
-   const loadMarkets=()=>fetch(API+"/api/markets").then(r=>r.json()).then(setMarkets).catch(()=>{});
+   const loadMarkets=()=>fetch(API+"/markets").then(r=>r.json()).then(setMarkets).catch(()=>{});
    loadMarkets();
    const timer=setInterval(loadMarkets,15000);
    return ()=>clearInterval(timer);
  },[]);
  useEffect(()=>{
-   Promise.all([fetch(API+"/api/market/"+encodeURIComponent(symbol)).then(r=>r.json()),
-                fetch(API+"/api/signal/"+encodeURIComponent(symbol)).then(r=>r.json())])
+   Promise.all([fetch(API+"/market/"+encodeURIComponent(symbol)).then(r=>r.json()),
+                fetch(API+"/signal/"+encodeURIComponent(symbol)).then(r=>r.json())])
    .then(([m,s])=>{setMarket(m);setSignal(s)}).catch(()=>{});
  },[symbol]);
  useEffect(()=>{
    const timer=setInterval(()=>{
-     fetch(API+"/api/market/"+encodeURIComponent(symbol)).then(r=>r.json()).then(setMarket).catch(()=>{});
-     fetch(API+"/api/signal/"+encodeURIComponent(symbol)).then(r=>r.json()).then(setSignal).catch(()=>{});
+     fetch(API+"/market/"+encodeURIComponent(symbol)).then(r=>r.json()).then(setMarket).catch(()=>{});
+     fetch(API+"/signal/"+encodeURIComponent(symbol)).then(r=>r.json()).then(setSignal).catch(()=>{});
    },15000);
    return ()=>clearInterval(timer);
  },[symbol]);
 
  const chart=useMemo(()=>market?{
-   labels:market.series.map(x=>x.time),
-   datasets:[{label:"Price",data:market.series.map(x=>x.close),borderWidth:2,pointRadius:0,tension:.35,fill:true}]
+   labels:(market?.series||[]).map(x=>x.time),
+   datasets:[{label:"Price",data:(market.series||[]).map(x=>x.close),borderWidth:2,pointRadius:0,tension:.35,fill:true}]
  }:{labels:[],datasets:[]},[market]);
 
  async function runBacktest(){
-   const r=await fetch(API+"/api/backtest?symbol="+encodeURIComponent(symbol)+"&initial_capital=100000",{method:"POST"});
+   const r=await fetch(API+"/backtest?symbol="+encodeURIComponent(symbol)+"&initial_capital=100000",{method:"POST"});
    setBacktest(await r.json()); setPage("Backtesting");
  }
  function handleSearch(event){
