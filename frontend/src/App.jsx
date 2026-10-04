@@ -105,7 +105,7 @@ function App(){
      <div className="sidebarBottom"><div className="riskMini"><span>●</span> System online<small>Market data connected</small></div></div>
    </aside>
    <main>
-    <header><button className="mobileMenu" aria-label="Toggle navigation" onClick={()=>document.querySelector(".sidebar")?.classList.toggle("open")}><Menu/></button><div className="search"><Search size={17}/><input aria-label="Search symbols, strategies, or sections" placeholder="Search symbol, strategy..." value={searchQuery} onChange={event=>setSearchQuery(event.target.value)} onKeyDown={handleSearch}/></div><div className="topActions"><button className="iconButton" aria-label="Notifications" onClick={()=>alert("No new notifications") }><Bell/></button><div className="avatar">JD</div></div></header>
+    <header><button className="mobileMenu" aria-label="Toggle navigation" onClick={()=>document.querySelector(".sidebar")?.classList.toggle("open")}><Menu/></button><div className="search"><Search size={17}/><input aria-label="Search symbols, strategies, or sections" placeholder="Search symbol, strategy..." value={searchQuery} onChange={event=>setSearchQuery(event.target.value)} onKeyDown={handleSearch}/></div><div className="topActions"><button className="iconButton" aria-label="Notifications" onClick={()=>alert("No new notifications") }><Bell/></button><div className="avatar">MJ</div></div></header>
      <div className="content">
       {page==="Dashboard" && <Dashboard markets={markets} symbol={symbol} setSymbol={setSymbol} market={market} signal={signal} chart={chart} runBacktest={runBacktest} onViewAll={()=>setPage("Signals")}/>}
        {page==="Signals" && <Signals symbol={symbol} setSymbol={setSymbol} signal={signal} markets={markets}/>}
