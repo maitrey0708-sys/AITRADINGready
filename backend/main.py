@@ -9,7 +9,11 @@ from market_data import market_frame
 app = FastAPI(title="AI Trading Dashboard API", version="2.0.0")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
 
-SYMBOLS = ["NIFTY 50", "BTC/USDT", "ETH/USDT", "BANK NIFTY"]
+SYMBOLS = [
+    "NIFTY 50", "BANK NIFTY", "SENSEX",
+    "RELIANCE", "TCS", "INFOSYS", "HDFC BANK", "ICICI BANK", "SBIN", "ITC", "BHARTI AIRTEL",
+    "BTC/USDT", "ETH/USDT",
+]
 
 @app.get("/")
 def root():
@@ -36,7 +40,7 @@ def market(symbol: str):
         "change": (price / prev - 1) * 100,
         "live": live,
         "updated_at": pd.Timestamp(df.time.iloc[-1]).isoformat(),
-        "series": [{"time": pd.Timestamp(x).strftime("%H:%M"), "open": float(o), "high": float(h), "low": float(l), "close": float(c)} for x,o,h,l,c in zip(df.time,df.open,df.high,df.low,df.close)],
+        "series": [{"time": pd.Timestamp(x).strftime("%d %b %H:%M"), "open": float(o), "high": float(h), "low": float(l), "close": float(c), "volume": float(v), "sma20": float(sma) if pd.notna(sma) else None} for x,o,h,l,c,v,sma in zip(df.time,df.open,df.high,df.low,df.close,df.volume,df.sma20)],
         "indicators": {"rsi": round(float(df.rsi.iloc[-1]), 2), "macd": round(float(df.macd.iloc[-1]), 4), "sma20": round(float(df.sma20.iloc[-1]), 2)},
     }
 

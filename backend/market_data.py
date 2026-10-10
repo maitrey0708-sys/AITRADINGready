@@ -11,6 +11,15 @@ except ImportError:
 SYMBOL_MAP = {
     "NIFTY 50": "^NSEI",
     "BANK NIFTY": "^NSEBANK",
+    "SENSEX": "^BSESN",
+    "RELIANCE": "RELIANCE.NS",
+    "TCS": "TCS.NS",
+    "INFOSYS": "INFY.NS",
+    "HDFC BANK": "HDFCBANK.NS",
+    "ICICI BANK": "ICICIBANK.NS",
+    "SBIN": "SBIN.NS",
+    "ITC": "ITC.NS",
+    "BHARTI AIRTEL": "BHARTIARTL.NS",
     "BTC/USDT": "BTC-USD",
     "ETH/USDT": "ETH-USD",
 }
@@ -20,7 +29,21 @@ CACHE_SECONDS = 15
 
 
 def _demo_frame(symbol="NIFTY 50", periods=80):
-    bases = {"NIFTY 50": 25842.35, "BTC/USDT": 112640.20, "ETH/USDT": 4182.75, "BANK NIFTY": 58320.10}
+    bases = {
+        "NIFTY 50": 25842.35,
+        "BANK NIFTY": 58320.10,
+        "SENSEX": 84500.0,
+        "RELIANCE": 1450.0,
+        "TCS": 3200.0,
+        "INFOSYS": 1500.0,
+        "HDFC BANK": 950.0,
+        "ICICI BANK": 1400.0,
+        "SBIN": 800.0,
+        "ITC": 400.0,
+        "BHARTI AIRTEL": 1900.0,
+        "BTC/USDT": 112640.20,
+        "ETH/USDT": 4182.75,
+    }
     base = bases.get(symbol, bases["NIFTY 50"])
     rng = np.random.default_rng(abs(hash(symbol)) % (2**32))
     returns = rng.normal(0.0004, 0.008, periods)

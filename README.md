@@ -6,10 +6,14 @@ The dashboard now attempts to load current market data through Yahoo Finance usi
 Supported symbols:
 - NIFTY 50 (`^NSEI`)
 - BANK NIFTY (`^NSEBANK`)
+- SENSEX (`^BSESN`)
+- RELIANCE, TCS, INFOSYS, HDFC BANK, ICICI BANK, SBIN, ITC, BHARTI AIRTEL (Yahoo Finance NSE symbols)
 - BTC/USDT (`BTC-USD`)
 - ETH/USDT (`ETH-USD`)
 
 **Important:** Yahoo Finance data availability and exchange delays depend on the instrument/exchange. The app visibly falls back to demo data if the provider is unavailable. This is not a guaranteed tick-by-tick feed.
+
+The dashboard chart shows the available close-price history and SMA (20); hovering a point reveals that candle's open, high, low, and volume. Quotes and candles are sourced through Yahoo Finance and may be delayed or unavailable. For exchange-authoritative real-time quotes, connect an authorized broker or exchange market-data feed.
 
 ## Run
 ### Backend
